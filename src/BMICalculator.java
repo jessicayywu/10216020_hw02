@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 public class BMICalculator extends JFrame {
@@ -38,6 +39,39 @@ public class BMICalculator extends JFrame {
 		add(p1, BorderLayout.NORTH);
 		add(p2, BorderLayout.CENTER);
 		add(p3, BorderLayout.SOUTH);
+		
+		jbtEnter.addActionListener(new ButtonListener());
+	}
+	
+	public class ButtonListener implements ActionListener {
+		public static final double KILOGRAMS_PER_POUND = 0.45359237;
+		public static final double METERS_PER_INCH = 0.0254;
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			double usersBMI = getBMI(Double.parseDouble(jtfWeight.getText()), Double.parseDouble(jtfHeight.getText()));
+			String usersStatus = getStatus(usersBMI);
+			
+			jlBMI.setText(String.format("%.2f", usersBMI));
+			jlStatus.setText(String.format("%s", usersStatus));			
+		}
+		
+		public double getBMI(double weight, double height) {
+			double bmi = weight * KILOGRAMS_PER_POUND / (Math.pow((height * METERS_PER_INCH), 2));
+			return Math.round(bmi * 100) / 100.0;
+		}
+		
+		public String getStatus(double bmi) {
+			if (bmi < 18.5)
+				return "Underweight";
+			else if (bmi < 25)
+				return "Normal";
+			else if (bmi < 30)
+				return "Overweight";
+			else
+				return "Obese";
+		}
+		
 	}
 	
 	public static void main(String[] args) {
