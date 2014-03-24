@@ -14,7 +14,7 @@ public class BMICalculator extends JFrame {
 	private JLabel jlStatus = new JLabel("(Status)");
 	
 	public BMICalculator() {		
-		JPanel p1 = new JPanel(new GridLayout(5,2));
+		JPanel p1 = new JPanel(new GridLayout(5,2,5,5));
 		p1.add(new JLabel("FirstName: "));
 		p1.add(jtfFirstName);
 		p1.add(new JLabel("LastName: "));
@@ -35,15 +35,14 @@ public class BMICalculator extends JFrame {
 		p3.add(new Label("Status: "));
 		p3.add(jlStatus);
 		
-		setLayout(new GridLayout(3,1));
-		add(p1);
-		add(p2);
-		add(p3);
+		add(p1, BorderLayout.NORTH);
+		add(p2, BorderLayout.CENTER);
+		add(p3, BorderLayout.SOUTH);
 	}
 	
 	public static void main(String[] args) {
 		BMICalculator frame = new BMICalculator();
-		frame.pack();
+		frame.setSize(400,250);
 		frame.setTitle("BMI Calculator");
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
