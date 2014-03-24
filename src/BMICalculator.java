@@ -15,32 +15,44 @@ public class BMICalculator extends JFrame {
 	private JLabel jlBMI = new JLabel("(BMI)");
 	private JLabel jlStatus = new JLabel("(Status)");
 	
+	private String[] weight = {"pounds", "kilograms"};
+	private String[] height = {"inches", "meters"};
+	
+	private JComboBox jcboWeight = new JComboBox(weight);
+	private JComboBox jcboHeight = new JComboBox(height);
+	
 	public BMICalculator() {		
-		JPanel p1 = new JPanel(new GridLayout(5,2,5,5));
-		p1.add(new JLabel(" FirstName: "));
+
+		
+		JPanel p1 = new JPanel(new GridLayout(3,2,5,5));
+		p1.add(new JLabel("   First Name: "));
 		p1.add(jtfFirstName);
-		p1.add(new JLabel(" LastName: "));
+		p1.add(new JLabel("   Last Name: "));
 		p1.add(jtfLastName);
-		p1.add(new JLabel(" Age: "));
+		p1.add(new JLabel("   Age: "));
 		p1.add(jtfAge);
-		p1.add(new JLabel("*Weight(pounds): "));
-		p1.add(jtfWeight);
-		p1.add(new JLabel("*Height(inches): "));
-		p1.add(jtfHeight);
-		p1.setBorder(new TitledBorder("* indicates required field."));
 		
-		JPanel p2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		p2.add(jbtEnter);
+		JPanel p2 = new JPanel(new GridLayout(2,3,5,5));
+		p2.add(new JLabel(" *Weight: "));
+		p2.add(jtfWeight);
+		p2.add(jcboWeight);
+		p2.add(new JLabel(" *Height: "));
+		p2.add(jtfHeight);
+		p2.add(jcboHeight);
+		p2.setBorder(new TitledBorder("* Required field."));
 		
-		JPanel p3 = new JPanel(new GridLayout(2,2));
-		p3.add(new Label("BMI: "));
+		JPanel p3 = new JPanel(new GridLayout(3,2,5,5));
+		p3.add(new JLabel());
+		p3.add(jbtEnter);
+		p3.add(new JLabel("    BMI: "));
 		p3.add(jlBMI);
-		p3.add(new Label("Status: "));
+		p3.add(new JLabel("    Status: "));
 		p3.add(jlStatus);
 		
-		add(p1, BorderLayout.NORTH);
-		add(p2, BorderLayout.CENTER);
-		add(p3, BorderLayout.SOUTH);
+		setLayout(new GridLayout(3,1,5,5));
+		add(p1);
+		add(p2);
+		add(p3);
 		
 		jbtEnter.addActionListener(new ButtonListener());
 	}
@@ -82,7 +94,7 @@ public class BMICalculator extends JFrame {
 	
 	public static void main(String[] args) {
 		BMICalculator frame = new BMICalculator();
-		frame.setSize(300,280);
+		frame.setSize(300,300);
 		frame.setTitle("BMI Calculator");
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
