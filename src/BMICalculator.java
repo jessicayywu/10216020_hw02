@@ -15,11 +15,11 @@ public class BMICalculator extends JFrame {
 	private JLabel jlBMI = new JLabel("(BMI)");
 	private JLabel jlStatus = new JLabel("(Status)");
 	
-	private String[] weight = {"pounds", "kilograms"};
-	private String[] height = {"inches", "meters"};
+	private String[] unitOfWeight = {"pounds", "kilograms"};
+	private String[] unitOfWeight = {"inches", "meters"};
 	
-	private JComboBox jcboWeight = new JComboBox(weight);
-	private JComboBox jcboHeight = new JComboBox(height);
+	private JComboBox jcboWeight = new JComboBox(unitOfWeight);
+	private JComboBox jcboHeight = new JComboBox(unitOfWeight);
 	
 	public BMICalculator() {		
 
@@ -55,18 +55,31 @@ public class BMICalculator extends JFrame {
 		add(p3);
 		
 		jbtEnter.addActionListener(new ButtonListener());
+		jcboWeight.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				double usersWeight = Double.parseDouble(jtfWeight.getText());
+				if (jcboWeight.getSelectedIndex() == 0)
+					usersWeight *= 0.45359237;
+			}
+		});
+		jcboHeight.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				double usersHeight = Double.parseDouble(jtfHeight.getText());
+				if (jcboHeight.getSelectedIndex() == 0)
+					usersHeight *= 0.0254;
+			}	
+		});
 	}
 	
-	public class ButtonListener implements ActionListener {
-		public static final double KILOGRAMS_PER_POUND = 0.45359237;
-		public static final double METERS_PER_INCH = 0.0254;
-		
+	public class ButtonListener implements ActionListener {		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (jtfWeight.getText().equals("") || jtfHeight.getText().equals(""))
 				JOptionPane.showMessageDialog(null, "Some required fields are not filled.", "Error", JOptionPane.ERROR_MESSAGE);
 			else {
-				double usersBMI = getBMI(Double.parseDouble(jtfWeight.getText()), Double.parseDouble(jtfHeight.getText()));
+				double usersBMI = getBMI(usersWeight, usersHeight);
 				String usersStatus = getStatus(usersBMI);
 				
 				jlBMI.setText(String.format("%.2f", usersBMI));
@@ -75,7 +88,7 @@ public class BMICalculator extends JFrame {
 		}
 		
 		public double getBMI(double weight, double height) {
-			double bmi = weight * KILOGRAMS_PER_POUND / (Math.pow((height * METERS_PER_INCH), 2));
+			double bmi = weight / (Math.pow(height, 2));
 			return Math.round(bmi * 100) / 100.0;
 		}
 		
