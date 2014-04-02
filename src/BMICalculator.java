@@ -16,7 +16,7 @@ public class BMICalculator extends JFrame {
 	private JLabel jlStatus = new JLabel("(Status)");
 
 	private String[] unitOfWeight = {"pounds", "kilograms"};
-	private String[] unitOfHeight = {"inches", "meters"};
+	private String[] unitOfHeight = {"inches", "meters", "centimeters"};
 
 	private JComboBox jcboWeight = new JComboBox(unitOfWeight);
 	private JComboBox jcboHeight = new JComboBox(unitOfHeight);
@@ -71,6 +71,8 @@ public class BMICalculator extends JFrame {
 
 				if (jcboHeight.getSelectedIndex() == 0)
 					usersHeight *= 0.0254;
+				if (jcboHeight.getSelectedIndex() == 3)
+					usersHeight *= 0.01;
 
 				double usersBMI = getBMI(usersWeight, usersHeight);
 				String usersStatus = getStatus(usersBMI);
