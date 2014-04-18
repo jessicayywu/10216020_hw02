@@ -96,7 +96,7 @@ public class BMICalculator extends JFrame {
 				if (jcboHeight.getSelectedIndex() == 0)
 					usersHeight *= 0.0254;
 				// Convert the height from centimeters to meters
-				if (jcboHeight.getSelectedIndex() == 3)
+				if (jcboHeight.getSelectedIndex() == 2)
 					usersHeight *= 0.01;
 				
 				// Get the BMI and the status
